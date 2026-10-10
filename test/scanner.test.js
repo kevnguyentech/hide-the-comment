@@ -168,3 +168,30 @@ test('rulesFromConfigs: no strings in markup, nothing for languages without comm
   assert.equal(rulesFromConfigs('plaintext', []), undefined);
   assert.equal(rulesFromConfigs('x', [{ brackets: [] }]), undefined);
 });
+
+test('rulesFromConfigs drops a block comment that only repeats the line token', () => {
+  const rules = rulesFromConfigs('ini', [{ comments: { lineComment: ';', blockComment: [';', ' '] } }]);
+  assert.deepEqual(rules.block, []);
+  assert.deepEqual(comments(';comment\n[section]\nkey=value\n', rules), [';comment']);
+  assert.deepEqual(comments('; a comment here\nkey = value\n', rules), ['; a comment here']);
+});
+
+test('an escaped quote does not close a triple-quoted string', () => {
+  const text = 'x = """a \\""" b"""\n# c1\ny = 1  # c2\n';
+  assert.deepEqual(comments(text, PYTHON), ['# c1', '# c2']);
+});
+
+test('restructuredtext: `..` opens a comment only when it starts a line', () => {
+  const rst = { line: ['..'], block: [], quotes: [], tripleQuotes: false, offSide: false };
+  const text = 'And so on... see ../docs/a.rst\n.. a comment\n  ..\n...not one\n';
+  assert.deepEqual(comments(text, rst), ['.. a comment', '..']);
+});
+
+test('rulesFromConfigs tolerates malformed pair lists', () => {
+  const rules = rulesFromConfigs('x', [{
+    comments: { lineComment: '#' },
+    autoClosingPairs: [null, ['"', '"']],
+    surroundingPairs: {},
+  }]);
+  assert.deepEqual(rules.quotes, ['"']);
+});

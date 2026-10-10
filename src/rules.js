@@ -61,16 +61,18 @@ function rulesFromConfigs(languageId, configs) {
     if (Array.isArray(blockComment) && blockComment[0] && blockComment[1]) {
       block.set(blockComment[0], blockComment[1]);
     }
-    for (const pair of [...(config.autoClosingPairs ?? []), ...(config.surroundingPairs ?? [])]) {
-      const [open, close] = Array.isArray(pair) ? pair : [pair.open, pair.close];
+    const pairs = [config.autoClosingPairs, config.surroundingPairs].filter(Array.isArray).flat();
+    for (const pair of pairs) {
+      const [open, close] = Array.isArray(pair) ? pair : [pair?.open, pair?.close];
       if (open === close && QUOTES.includes(open)) quotes.add(open);
     }
     offSide ||= config.folding?.offSide === true;
   }
 
   // Python declares """ as its block comment, but that is a string literal and may hold real data.
+  // INI-style languages repeat their line token as a "block" that closes at the next space.
   for (const open of [...block.keys()]) {
-    if (QUOTES.includes(open[0])) block.delete(open);
+    if (QUOTES.includes(open[0]) || line.has(open)) block.delete(open);
   }
   if (line.size === 0 && block.size === 0) return undefined;
 
