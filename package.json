@@ -1,0 +1,82 @@
+{
+  "name": "hide-comments",
+  "displayName": "Hide Comments",
+  "description": "Hide every comment in your code base with one button, without changing your files.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "comments",
+    "hide",
+    "toggle",
+    "fold"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "hideComments.toggle",
+        "title": "Toggle Comments",
+        "category": "Hide Comments"
+      },
+      {
+        "command": "hideComments.hide",
+        "title": "Hide Comments",
+        "category": "Hide Comments",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "hideComments.show",
+        "title": "Show Comments",
+        "category": "Hide Comments",
+        "icon": "$(eye-closed)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "hideComments.hide",
+          "when": "!hideComments.hidden",
+          "group": "navigation"
+        },
+        {
+          "command": "hideComments.show",
+          "when": "hideComments.hidden",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "hideComments.hide",
+          "when": "!hideComments.hidden"
+        },
+        {
+          "command": "hideComments.show",
+          "when": "hideComments.hidden"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Hide Comments",
+      "properties": {
+        "hideComments.collapseBlocks": {
+          "type": "boolean",
+          "default": true,
+          "description": "While comments are hidden, fold runs of comment-only lines down to a single line instead of leaving a gap as tall as the comment."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node test/scanner.test.js"
+  }
+}
