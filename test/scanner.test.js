@@ -175,3 +175,8 @@ test('rulesFromConfigs drops a block comment that only repeats the line token', 
   assert.deepEqual(comments(';comment\n[section]\nkey=value\n', rules), [';comment']);
   assert.deepEqual(comments('; a comment here\nkey = value\n', rules), ['; a comment here']);
 });
+
+test('an escaped quote does not close a triple-quoted string', () => {
+  const text = 'x = """a \\""" b"""\n# c1\ny = 1  # c2\n';
+  assert.deepEqual(comments(text, PYTHON), ['# c1', '# c2']);
+});

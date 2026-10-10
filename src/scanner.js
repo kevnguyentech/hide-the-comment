@@ -81,8 +81,12 @@ function opensLineComment(text, i, token) {
 function stringEnd(text, i, tripleQuotes) {
   const quote = text[i];
   if (tripleQuotes && quote !== '`' && text.startsWith(quote.repeat(3), i)) {
-    const closeAt = text.indexOf(quote.repeat(3), i + 3);
-    return closeAt === -1 ? text.length : closeAt + 3;
+    const close = quote.repeat(3);
+    for (let j = i + 3; j < text.length; j++) {
+      if (text[j] === '\\') j++;
+      else if (text.startsWith(close, j)) return j + 3;
+    }
+    return text.length;
   }
   const spansLines = quote === '`';
   for (let j = i + 1; j < text.length; j++) {
