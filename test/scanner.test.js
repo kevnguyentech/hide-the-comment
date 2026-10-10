@@ -168,3 +168,10 @@ test('rulesFromConfigs: no strings in markup, nothing for languages without comm
   assert.equal(rulesFromConfigs('plaintext', []), undefined);
   assert.equal(rulesFromConfigs('x', [{ brackets: [] }]), undefined);
 });
+
+test('rulesFromConfigs drops a block comment that only repeats the line token', () => {
+  const rules = rulesFromConfigs('ini', [{ comments: { lineComment: ';', blockComment: [';', ' '] } }]);
+  assert.deepEqual(rules.block, []);
+  assert.deepEqual(comments(';comment\n[section]\nkey=value\n', rules), [';comment']);
+  assert.deepEqual(comments('; a comment here\nkey = value\n', rules), ['; a comment here']);
+});

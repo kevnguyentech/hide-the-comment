@@ -69,8 +69,9 @@ function rulesFromConfigs(languageId, configs) {
   }
 
   // Python declares """ as its block comment, but that is a string literal and may hold real data.
+  // INI-style languages repeat their line token as a "block" that closes at the next space.
   for (const open of [...block.keys()]) {
-    if (QUOTES.includes(open[0])) block.delete(open);
+    if (QUOTES.includes(open[0]) || line.has(open)) block.delete(open);
   }
   if (line.size === 0 && block.size === 0) return undefined;
 
