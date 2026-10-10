@@ -180,3 +180,9 @@ test('an escaped quote does not close a triple-quoted string', () => {
   const text = 'x = """a \\""" b"""\n# c1\ny = 1  # c2\n';
   assert.deepEqual(comments(text, PYTHON), ['# c1', '# c2']);
 });
+
+test('restructuredtext: `..` opens a comment only when it starts a line', () => {
+  const rst = { line: ['..'], block: [], quotes: [], tripleQuotes: false, offSide: false };
+  const text = 'And so on... see ../docs/a.rst\n.. a comment\n  ..\n...not one\n';
+  assert.deepEqual(comments(text, rst), ['.. a comment', '..']);
+});

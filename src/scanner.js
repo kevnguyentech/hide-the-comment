@@ -74,6 +74,11 @@ function opensLineComment(text, i, token) {
   const before = text[i - 1];
   if (token === '#') return before === undefined || /\s/.test(before);
   if (token === '//') return before !== ':';
+  // reStructuredText: `..` has to open its line and stand alone, unlike `...` or `../path`.
+  if (token === '..') {
+    const lineStart = text.lastIndexOf('\n', i - 1) + 1;
+    return text.slice(lineStart, i).trim() === '' && !/\S/.test(text[i + 2] ?? '');
+  }
   return true;
 }
 
