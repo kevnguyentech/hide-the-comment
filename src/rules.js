@@ -61,8 +61,9 @@ function rulesFromConfigs(languageId, configs) {
     if (Array.isArray(blockComment) && blockComment[0] && blockComment[1]) {
       block.set(blockComment[0], blockComment[1]);
     }
-    for (const pair of [...(config.autoClosingPairs ?? []), ...(config.surroundingPairs ?? [])]) {
-      const [open, close] = Array.isArray(pair) ? pair : [pair.open, pair.close];
+    const pairs = [config.autoClosingPairs, config.surroundingPairs].filter(Array.isArray).flat();
+    for (const pair of pairs) {
+      const [open, close] = Array.isArray(pair) ? pair : [pair?.open, pair?.close];
       if (open === close && QUOTES.includes(open)) quotes.add(open);
     }
     offSide ||= config.folding?.offSide === true;

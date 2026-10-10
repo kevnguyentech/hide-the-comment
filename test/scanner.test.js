@@ -186,3 +186,12 @@ test('restructuredtext: `..` opens a comment only when it starts a line', () => 
   const text = 'And so on... see ../docs/a.rst\n.. a comment\n  ..\n...not one\n';
   assert.deepEqual(comments(text, rst), ['.. a comment', '..']);
 });
+
+test('rulesFromConfigs tolerates malformed pair lists', () => {
+  const rules = rulesFromConfigs('x', [{
+    comments: { lineComment: '#' },
+    autoClosingPairs: [null, ['"', '"']],
+    surroundingPairs: {},
+  }]);
+  assert.deepEqual(rules.quotes, ['"']);
+});
