@@ -1,4 +1,4 @@
-# Hide Comments
+# Hide the Comment
 
 A VS Code extension that hides every comment in your code base with one button, so you can read
 the code on its own. Your files are never modified: comments are only hidden from view, and one
@@ -27,9 +27,14 @@ more click brings them back.
 
 ## Install
 
-The extension is not on the VS Code Marketplace. Install it from the packaged `.vsix` file:
+**From the VS Code Marketplace:** open the Extensions view in VS Code, search for
+**Hide the Comment** and click **Install**. Or go to its
+[Marketplace page](https://marketplace.visualstudio.com/items?itemName=KevinNguyen.hide-comments).
 
-1. Download `hide-comments-0.1.0.vsix` from the [Releases](../../releases) page.
+**From a `.vsix` file:**
+
+1. Download `hide-comments-0.1.0.vsix` from the
+   [Releases](https://github.com/kevnguyentech/hide-the-comment/releases) page.
 2. In VS Code, open the Extensions view, click the `...` menu at its top right, choose
    **Install from VSIX...**, and pick the downloaded file.
 

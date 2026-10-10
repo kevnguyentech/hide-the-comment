@@ -1,10 +1,18 @@
 {
   "name": "hide-comments",
-  "displayName": "Hide Comments",
+  "displayName": "Hide the Comment",
   "description": "Hide every comment in your code base with one button, without changing your files.",
   "version": "0.1.0",
-  "publisher": "local",
+  "publisher": "KevinNguyen",
   "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevnguyentech/hide-the-comment.git"
+  },
+  "homepage": "https://github.com/kevnguyentech/hide-the-comment#readme",
+  "bugs": {
+    "url": "https://github.com/kevnguyentech/hide-the-comment/issues"
+  },
   "engines": {
     "vscode": "^1.75.0"
   },
