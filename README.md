@@ -33,7 +33,7 @@ more click brings them back.
 
 **From a `.vsix` file:**
 
-1. Download `hide-comments-0.1.0.vsix` from the
+1. Download `hide-comments-0.1.1.vsix` from the
    [Releases](https://github.com/kevnguyentech/hide-the-comment/releases) page.
 2. In VS Code, open the Extensions view, click the `...` menu at its top right, choose
    **Install from VSIX...**, and pick the downloaded file.
@@ -41,7 +41,7 @@ more click brings them back.
 Or from a terminal, in the folder where you saved the file:
 
 ```
-code --install-extension hide-comments-0.1.0.vsix
+code --install-extension hide-comments-0.1.1.vsix
 ```
 
 Requires VS Code 1.75 or newer.

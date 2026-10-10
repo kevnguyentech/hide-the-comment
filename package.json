@@ -2,7 +2,7 @@
   "name": "hide-comments",
   "displayName": "Hide the Comment",
   "description": "Hide every comment in your code base with one button, without changing your files.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "KevinNguyen",
   "license": "PolyForm-Noncommercial-1.0.0",
   "repository": {
